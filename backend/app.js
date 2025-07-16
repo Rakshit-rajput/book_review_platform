@@ -3,6 +3,8 @@ const app = express();
 const connectDB = require("./db/connectDB");
 const authRouter = require("./routes/authRouter");
 const bookRouter = require("./routes/bookRouter");
+const userRouter = require("./routes/userRoutes");
+const reviewRouter = require("./routes/reviewRouter");
 const PORT = 5000;
 const cookieParser = require("cookie-parser");
 app.use(express.json());
@@ -10,6 +12,8 @@ app.use(cookieParser());
 //Routes
 app.use("/auth", authRouter);
 app.use("/", bookRouter);
+app.use("/", userRouter);
+app.use("/", reviewRouter);
 
 const start = async () => {
   try {

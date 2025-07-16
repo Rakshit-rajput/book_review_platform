@@ -22,7 +22,7 @@ const bookSchema = mongoose.Schema(
     },
     reviews: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "review",
+      ref: "Review",
       default: [],
     },
   },

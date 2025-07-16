@@ -1,6 +1,5 @@
 const { validateStringData } = require("../../utils/validate");
 const User = require("../../models/user");
-const bcrypt = require("bcrypt");
 
 const SignUpController = async (req, res) => {
   try {
@@ -11,12 +10,11 @@ const SignUpController = async (req, res) => {
     if (existingUser) {
       return res.status(400).send("ERROR:Email already registered");
     }
-    const passwordHash = await bcrypt.hash(password, 10);
     const user = new User({
       firstName,
       lastName,
       emailId: emailId,
-      password: passwordHash,
+      password: password,
     });
     await user.save();
     //Generate jwt token for session handling

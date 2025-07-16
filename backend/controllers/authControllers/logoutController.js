@@ -1,7 +1,5 @@
 const logoutController = async (req, res) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
-  });
-  res.send("Logout Successfull!");
+  res.clearCookie("token");
+  res.send("Logout Successful!");
 };
 module.exports = logoutController;

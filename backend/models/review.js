@@ -6,6 +6,11 @@ const reviewSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    bookId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Book",
+      required: true,
+    },
     reviewText: {
       type: String,
       required: true,
@@ -19,4 +24,4 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("review", reviewSchema);
+module.exports = mongoose.model("Review", reviewSchema);

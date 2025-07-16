@@ -7,18 +7,17 @@ const loginController = async (req, res) => {
       emailId: emailId,
     });
     if (!user) {
-      return res.status(404).send("Invalid credentials");
+      return res.status(401).send("Invalid email or password");
     }
     const isPassword = await user.validatePassword(password);
-    if (isPassword) {
-      const token = user.getJWT();
-      res.cookie("token", token, {
-        httpOnly: true,
-      });
-      return res.send(user);
-    } else {
-      throw new Error("Invalid Credentials");
+    if (!isPassword) {
+      return res.status(401).send("Invalid email or password");
     }
+    const token = user.getJWT();
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
+    res.status(200).send({ message: "Login successful", user });
   } catch (error) {
     res.status(500).send("Something went wrong:" + error.message);
   }
