@@ -29,16 +29,6 @@ app.use(
   })
 );
 
-// Handle preflight requests for /auth routes
-app.options("/auth/*", cors({
-  origin: [
-    "http://localhost:5173",
-    "https://book-review-platform-1-8gwg.onrender.com",
-  ],
-  credentials: true,
-  exposedHeaders: ["set-cookie"],
-}));
-
 //Routes
 app.use("/auth", authRouter);
 app.use("/", bookRouter);
