@@ -18,7 +18,7 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/book/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/book/${id}`);
         if (!response.ok) throw new Error("Failed to fetch book details");
         const data = await response.json();
         setBook(data);
@@ -41,7 +41,7 @@ const BookDetails = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/reviews`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

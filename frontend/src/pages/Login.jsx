@@ -34,7 +34,7 @@ const Login = () => {
     try {
       let response;
       if (isLogin) {
-        response = await fetch("http://localhost:5000/auth/login", {
+        response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -44,7 +44,7 @@ const Login = () => {
           credentials: "include", // 👈 This is crucial for cookies
         });
       } else {
-        response = await fetch("http://localhost:5000/auth/signUp", {
+        response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/signUp`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
