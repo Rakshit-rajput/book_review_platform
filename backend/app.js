@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const connectDB = require("./db/connectDB");
 const authRouter = require("./routes/authRouter");
 const bookRouter = require("./routes/bookRouter");
@@ -9,6 +10,19 @@ const PORT = 5000;
 const cookieParser = require("cookie-parser");
 app.use(express.json());
 app.use(cookieParser());
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true,
+//   })
+// );
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://yourfrontend.com"],
+    credentials: true,
+    exposedHeaders: ["set-cookie"],
+  })
+);
 //Routes
 app.use("/auth", authRouter);
 app.use("/", bookRouter);

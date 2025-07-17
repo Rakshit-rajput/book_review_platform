@@ -1,9 +1,30 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Install with: npm install lucide-react
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../utils/authSlice";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const userRole = useSelector((state) => state.auth.role);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+      });
+      if (response.ok) {
+        dispatch(logout());
+        console.log("Logout successful");
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("API call failed:", error);
+    }
+  };
 
   return (
     <nav className="bg-white shadow-md">
@@ -33,12 +54,29 @@ const Navbar = () => {
               >
                 Books
               </Link>
-              <Link
-                to="/login"
-                className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-              >
-                Login
-              </Link>
+              {userRole === "admin" && (
+                <Link
+                  to="/upload-book"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  Upload Book
+                </Link>
+              )}
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="ml-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </div>
 
@@ -79,13 +117,25 @@ const Navbar = () => {
           >
             Books
           </Link>
-          <Link
-            to="/login"
-            className="block w-full text-center bg-blue-600 text-white px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200"
-            onClick={() => setIsOpen(false)}
-          >
-            Login
-          </Link>
+          {isAuthenticated ? (
+            <button
+              onClick={() => {
+                handleLogout();
+                setIsOpen(false);
+              }}
+              className="block w-full text-center bg-red-600 text-white px-3 py-2 rounded-md text-base font-medium hover:bg-red-700 transition-colors duration-200"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="block w-full text-center bg-blue-600 text-white px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200"
+              onClick={() => setIsOpen(false)}
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

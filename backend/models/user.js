@@ -50,9 +50,19 @@ userSchema.methods.validatePassword = async function (passwordInputbyUser) {
 };
 
 userSchema.methods.getJWT = function () {
-  const user = this;
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  return token;
+  return jwt.sign(
+    {
+      _id: this._id,
+
+      email: this.emailId,
+      role: this.role,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1d",
+      algorithm: "HS256",
+    }
+  );
 };
 
 module.exports = mongoose.model("User", userSchema);

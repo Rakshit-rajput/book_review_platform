@@ -5,7 +5,7 @@ const uploadBookController = require("../controllers/booksController/uploadBookC
 const getBookController = require("../controllers/booksController/getBookController");
 const userAuth = require("../middlewares/userAuth");
 const isAdmin = require("../middlewares/isAdmin");
-bookRouter.get("/books", userAuth, bookController);
+bookRouter.get("/books", bookController);
 bookRouter.get("/book/:id", getBookController);
 bookRouter.post("/books", userAuth, isAdmin, uploadBookController);
 

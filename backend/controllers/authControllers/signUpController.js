@@ -8,7 +8,9 @@ const SignUpController = async (req, res) => {
     //checking is user already exists
     const existingUser = await User.findOne({ emailId });
     if (existingUser) {
-      return res.status(400).send("ERROR:Email already registered");
+      return res
+        .status(400)
+        .json({ message: "ERROR:Email already registered" });
     }
     const user = new User({
       firstName,
@@ -20,10 +22,10 @@ const SignUpController = async (req, res) => {
     //Generate jwt token for session handling
     const token = await user.getJWT();
     res.cookie("token", token, { httpOnly: true });
-    res.status(200).send({ message: "User added successfully", user });
+    res.status(200).json({ message: "User added successfully", user });
   } catch (error) {
     console.log("Signup error:", error);
-    res.status(400).send("ERROR:" + error.message);
+    res.status(400).json({ message: "ERROR:" + error.message });
   }
 };
 module.exports = SignUpController;
