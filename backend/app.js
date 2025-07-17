@@ -20,7 +20,10 @@ app.use(cookieParser());
 const PORT = process.env.PORT || 5000;
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://yourfrontend.com"],
+    origin: [
+      "http://localhost:5173",
+      "https://book-review-platform-1-8gwg.onrender.com",
+    ],
     credentials: true,
     exposedHeaders: ["set-cookie"],
   })

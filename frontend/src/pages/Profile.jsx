@@ -29,9 +29,12 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserReviews = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/me/reviews`, {
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/me/reviews`,
+          {
+            credentials: "include",
+          }
+        );
         if (!response.ok) throw new Error("Failed to fetch user reviews");
         const data = await response.json();
         setReviews(data.reviews);
@@ -59,7 +62,7 @@ const Profile = () => {
       const updateData = { firstName, lastName };
       if (password) updateData.password = password;
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${user._id}`, {
+      const response = await fetch(`http://localhost:5000/users/${user._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateData),
