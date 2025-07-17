@@ -25,6 +25,10 @@ const bookSchema = mongoose.Schema(
       ref: "Review",
       default: [],
     },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

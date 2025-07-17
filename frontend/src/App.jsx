@@ -1,8 +1,20 @@
+import "./App.css";
+import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Books from "./pages/Books";
+import Login from "./pages/Login";
+
 function App() {
   return (
-    <>
-      <h1 class="text-3xl font-bold underline">Hello world!</h1>
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
