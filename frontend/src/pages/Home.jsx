@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchBooks } from '../utils/bookSlice';
-import BookCard from '../components/BookCard';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFeaturedBooks } from "../utils/bookSlice"; // ✅ use correct thunk
+import BookCard from "../components/BookCard";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { featuredBooks, isLoading, error } = useSelector((state) => state.books);
+  const { featuredBooks, isLoading, error } = useSelector(
+    (state) => state.books
+  );
 
   useEffect(() => {
-    dispatch(fetchBooks());
+    dispatch(fetchFeaturedBooks()); // ✅ fetch only featured books
   }, [dispatch]);
 
   if (isLoading) {
@@ -21,12 +23,16 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Featured Books</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {featuredBooks.map((book) => (
-          <BookCard key={book._id} book={book} />
-        ))}
-      </div>
+      <h1 className="text-2xl font-semibold mb-4">Featured Books</h1>
+      {featuredBooks.length === 0 ? (
+        <p>No featured books available.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {featuredBooks.map((book) => (
+            <BookCard key={book._id} book={book} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

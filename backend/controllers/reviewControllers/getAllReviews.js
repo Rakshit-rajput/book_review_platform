@@ -7,7 +7,7 @@ const getAllReviewsController = async (req, res) => {
     if (!book) {
       res.status(400).json({ message: "No book found", error });
     }
-    const reviews = await review.find({ bookId: bookId }).lean();
+    const reviews = await review.find({ bookId: bookId }).populate('userId', 'firstName lastName').lean();
     res.status(200).json({ reviews });
   } catch (error) {
     console.error("Error fetching reviews:", error.message);

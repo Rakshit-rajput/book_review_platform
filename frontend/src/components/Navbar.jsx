@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/auth/logout", {
+      const response = await fetch("http://localhost:5000/auth/logout", {
         method: "POST",
       });
       if (response.ok) {

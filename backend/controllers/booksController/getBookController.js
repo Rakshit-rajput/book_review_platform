@@ -3,7 +3,13 @@ const Book = require("../../models/books");
 const getBookController = async (req, res) => {
   try {
     const { id } = req.params;
-    const book = await Book.findById(id);
+    const book = await Book.findById(id).populate({
+      path: 'reviews',
+      populate: {
+        path: 'userId',
+        select: 'firstName lastName' // Select the fields you want to populate
+      }
+    });
     if (!book) {
       return res.status(404).send("Book not found");
     }
