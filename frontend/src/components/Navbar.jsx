@@ -54,6 +54,14 @@ const Navbar = () => {
               >
                 Books
               </Link>
+              {isAuthenticated && (
+                <Link
+                  to="/profile"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  Profile
+                </Link>
+              )}
               {userRole === "admin" && (
                 <Link
                   to="/upload-book"
@@ -117,6 +125,15 @@ const Navbar = () => {
           >
             Books
           </Link>
+          {isAuthenticated && (
+            <Link
+              to="/profile"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
+              onClick={() => setIsOpen(false)}
+            >
+              Profile
+            </Link>
+          )}
           {isAuthenticated ? (
             <button
               onClick={() => {
