@@ -6,7 +6,8 @@ const authRouter = require("./routes/authRouter");
 const bookRouter = require("./routes/bookRouter");
 const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRouter");
-const PORT = 5000;
+
+require("dotenv").config();
 const cookieParser = require("cookie-parser");
 app.use(express.json());
 app.use(cookieParser());
@@ -16,6 +17,7 @@ app.use(cookieParser());
 //     credentials: true,
 //   })
 // );
+const PORT = process.env.PORT || 5000;
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://yourfrontend.com"],
